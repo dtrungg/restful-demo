@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
@@ -29,5 +29,15 @@ public class Task {
     private String status;
 
     @Column(nullable = false)
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 }
