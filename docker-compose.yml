@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: rf_mysql
+    container_name: restful_demo_mysql_sql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: rf_mysql

@@ -1,12 +1,19 @@
 package org.example.restfuldemo.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
-public class TaskDto {
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class TaskRequest {
     private Long id;
     @NotBlank(message = "Title is required")
     @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
@@ -22,8 +29,9 @@ public class TaskDto {
 
     @NotNull(message = "Due date is required")
     @FutureOrPresent(message = "Due date must be in the present or future")
-    private LocalDateTime dueDate;
+//    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dueDate;
 
-    @NotNull(message = "Person ID is required")
-    private PersonDto person;
+    @NotNull(message = "User ID is required")
+    private Long userId;
 }

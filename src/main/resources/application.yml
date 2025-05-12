@@ -2,12 +2,13 @@ spring:
   application:
     name: restful-demo
   datasource:
-    url: jdbc:mysql://localhost:3306/restful-demo
+    url: jdbc:mysql://localhost:3306/rf_mysql
     username: mysql
     password: mysql
   jpa:
     hibernate:
-      ddl-auto: update
+#      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
@@ -15,6 +16,6 @@ spring:
   main:
     banner-mode: off
 
-server: { port: 8080 }
+server: { port: 8088 }
 
 api: { prefix: /api/v1 }
