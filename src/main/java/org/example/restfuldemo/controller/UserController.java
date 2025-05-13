@@ -77,18 +77,20 @@ public class UserController {
                     content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseData<String>> updateUser(
+    public ResponseEntity<ResponseData<UserResponse>> updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UserRequest userRequest
     ) {
-        userService.updateUser(id, userRequest);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ResponseUtil.success(Constants.USER_UPDATE_SUCCESSFUL_MESSAGE));
+                .body(ResponseUtil.success(userService.updateUser(id, userRequest),
+                        Constants.USER_UPDATE_SUCCESSFUL_MESSAGE
+                ));
     }
 
     @Operation(summary = Constants.DELETE_USER_SUMMARY, description = Constants.DELETE_USER_DESCRIPTION)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_NO_CONTENT, description = Constants.USER_DELETE_SUCCESSFUL_MESSAGE),
+            @ApiResponse(responseCode = Constants.HTTP_NO_CONTENT,
+                    description = Constants.USER_DELETE_SUCCESSFUL_MESSAGE),
             @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.USER_NOT_FOUND_ERROR,
                     content = @Content)
     })

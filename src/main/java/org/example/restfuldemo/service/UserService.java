@@ -38,7 +38,7 @@ public interface UserService {
      * @param id          Unique identifier of the user to update
      * @param userRequest DTO containing updated user data
      */
-    void updateUser(Long id, UserRequest userRequest);
+    UserResponse updateUser(Long id, UserRequest userRequest);
 
     /**
      * Deletes a user by their unique identifier.

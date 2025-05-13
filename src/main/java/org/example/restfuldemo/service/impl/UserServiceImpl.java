@@ -86,12 +86,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public void updateUser(Long id, UserRequest userRequest) {
+    public UserResponse updateUser(Long id, UserRequest userRequest) {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
         user.setUserName(userRequest.getUserName());
         user.setPassWord(userRequest.getPassWord());
-        userRepository.save(user);
+        User newUser = userRepository.save(user);
+        return UserMapper.mapper.mapToResponse(newUser);
     }
 
     /**
