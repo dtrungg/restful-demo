@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.restfuldemo.constants.Constants;
 
 import java.time.LocalDate;
 
@@ -15,23 +16,24 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class TaskRequest {
     private Long id;
-    @NotBlank(message = "Title is required")
-    @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
+
+    @NotBlank(message = Constants.TITLE_REQUIRED)
+    @Size(min = 3, max = 100, message = Constants.TITLE_SIZE)
     private String title;
 
-    @NotBlank(message = "Description is required")
-    @Size(min = 10, max = 500, message = "Description must be between 10 and 500 characters")
+    @NotBlank(message = Constants.DESCRIPTION_REQUIRED)
+    @Size(min = 10, max = 500, message = Constants.DESCRIPTION_SIZE)
     private String description;
 
-    @NotBlank(message = "Status is required")
-    @Pattern(regexp = "PENDING|IN_PROGRESS|COMPLETED", message = "Invalid status")
+    @NotBlank(message = Constants.STATUS_REQUIRED)
+    @Pattern(regexp = "PENDING|IN_PROGRESS|COMPLETED", message = Constants.INVALID_STATUS)
     private String status;
 
-    @NotNull(message = "Due date is required")
-    @FutureOrPresent(message = "Due date must be in the present or future")
-//    @JsonFormat(pattern="yyyy-MM-dd")
+    @NotNull(message = Constants.DUE_DATE_REQUIRED)
+    @FutureOrPresent(message = Constants.DUE_DATE_FUTURE_OR_PRESENT)
+    // @JsonFormat(pattern="yyyy-MM-dd") // Uncomment if needed
     private LocalDate dueDate;
 
-    @NotNull(message = "User ID is required")
+    @NotNull(message = Constants.USER_ID_REQUIRED)
     private Long userId;
 }

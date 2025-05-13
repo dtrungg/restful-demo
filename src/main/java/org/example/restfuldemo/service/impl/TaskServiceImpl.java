@@ -1,5 +1,6 @@
 package org.example.restfuldemo.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.example.restfuldemo.constants.Constants;
 import org.example.restfuldemo.dto.request.TaskRequest;
 import org.example.restfuldemo.dto.response.task.TaskResponse;
@@ -22,14 +23,10 @@ import java.util.stream.Collectors;
  * update, and deletion of tasks with proper error handling.
  */
 @Service
+@RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
-
-    public TaskServiceImpl(TaskRepository taskRepository, UserRepository userRepository) {
-        this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
-    }
 
     /**
      * Retrieves all tasks from the repository and converts them to response DTOs.

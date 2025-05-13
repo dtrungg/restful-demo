@@ -5,6 +5,7 @@ import org.example.restfuldemo.constants.Constants;
 import org.example.restfuldemo.dto.request.UserRequest;
 import org.example.restfuldemo.dto.response.user.UserResponse;
 import org.example.restfuldemo.entity.User;
+import org.example.restfuldemo.exception.ResourceAlreadyExistException;
 import org.example.restfuldemo.exception.ResourceNotFoundException;
 import org.example.restfuldemo.mapper.UserMapper;
 import org.example.restfuldemo.repository.UserRepository;
@@ -35,6 +36,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserResponse createUser(UserRequest userRequest) {
+        // check if user already exists
+        if (userRepository.existsByUserName(userRequest.getUserName())) {
+            throw new ResourceAlreadyExistException(Constants.USER_EXIST);
+        }
         User user = UserMapper.mapper.mapToEntity(userRequest);
         User newUser = userRepository.save(user);
         UserResponse userResponse = UserMapper.mapper.mapToResponse(newUser);

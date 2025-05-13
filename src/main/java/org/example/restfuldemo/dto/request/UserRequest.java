@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.restfuldemo.constants.Constants;
 
 import java.util.List;
 
@@ -13,12 +14,12 @@ import java.util.List;
 public class UserRequest {
     private Long id;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+    @NotBlank(message = Constants.NAME_REQUIRED)
+    @Size(min = 4, max = 50, message = Constants.NAME_SIZE)
     private String userName;
 
-    @NotBlank(message = "Password is required")
-    @Size(min = 4, max = 25, message = "Password must be between 6 and 25 characters")
+    @NotBlank(message = Constants.PASSWORD_REQUIRED)
+    @Size(min = 4, max = 25, message = Constants.PASSWORD_SIZE)
     private String passWord;
 
     @JsonIgnore

@@ -16,10 +16,10 @@ public class ResponseUtil {
      * @param message  Message to include in the response
      * @return A success ResponseData object with the given message
      */
-    public static <T> ResponseData<T> success(String message) {
+    public static <T> ResponseData<T> success(T message) {
         ResponseData<T> response = new ResponseData<>();
         response.setSuccess(true);
-        response.setMessage(message);
+        response.setMessage(message.toString());
         response.setData(null);
         response.setErrors(null);
         response.setTimestamp(System.currentTimeMillis());

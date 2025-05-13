@@ -7,7 +7,7 @@ spring:
     password: mysql
   jpa:
     hibernate:
-#      ddl-auto: update
+      #      ddl-auto: update
       ddl-auto: create-drop
     show-sql: true
     properties:
@@ -19,3 +19,9 @@ spring:
 server: { port: 8088 }
 
 api: { prefix: /api/v1 }
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
