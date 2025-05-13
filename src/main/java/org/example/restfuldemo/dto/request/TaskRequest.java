@@ -15,8 +15,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskRequest {
-    private Long id;
-
     @NotBlank(message = Constants.TITLE_REQUIRED)
     @Size(min = 3, max = 100, message = Constants.TITLE_SIZE)
     private String title;

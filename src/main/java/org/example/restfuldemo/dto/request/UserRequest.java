@@ -12,8 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class UserRequest {
-    private Long id;
-
     @NotBlank(message = Constants.NAME_REQUIRED)
     @Size(min = 4, max = 50, message = Constants.NAME_SIZE)
     private String userName;
@@ -21,7 +19,4 @@ public class UserRequest {
     @NotBlank(message = Constants.PASSWORD_REQUIRED)
     @Size(min = 4, max = 25, message = Constants.PASSWORD_SIZE)
     private String passWord;
-
-    @JsonIgnore
-    private List<TaskRequest> tasks;
 }

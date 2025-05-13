@@ -69,11 +69,6 @@ public class Constants {
     public static final String UPDATE_USER_DESCRIPTION = "Updates a user's details";
     public static final String DELETE_USER_SUMMARY = "Delete user";
     public static final String DELETE_USER_DESCRIPTION = "Deletes a user by their unique ID";
-    //    public static final String USER_LIST_SUCCESSFUL_MESSAGE = "User list retrieved successfully";
-    //    public static final String USER_SUCCESSFUL_MESSAGE = "User retrieved successfully";
-    //    public static final String USER_CREATE_SUCCESSFUL_MESSAGE = "User created successfully";
-    //    public static final String USER_UPDATE_SUCCESSFUL_MESSAGE = "User updated successfully";
-    //    public static final String USER_DELETE_SUCCESSFUL_MESSAGE = "User deleted successfully";
     public static final String NO_USERS_FOUND_ERROR = "No users found";
     public static final String USER_NOT_FOUND_ERROR = "User not found";
 

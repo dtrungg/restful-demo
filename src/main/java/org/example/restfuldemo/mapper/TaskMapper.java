@@ -29,16 +29,6 @@ public interface TaskMapper {
     TaskRequest mapToDto(Task task);
 
     /**
-     * Maps a TaskRequest DTO to a Task entity.
-     * Custom mapping is defined to convert userId field to user entity ID.
-     *
-     * @param taskRequest TaskRequest DTO to map
-     * @return Task entity representation of the DTO
-     */
-    @Mapping(source = "userId", target = "user.id")
-    Task mapToEntity(TaskRequest taskRequest);
-
-    /**
      * Maps a Task entity to a TaskResponse DTO.
      * Custom mapping is defined to convert user entity ID to userId field in DTO.
      *

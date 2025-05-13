@@ -67,9 +67,13 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public TaskResponse createTask(TaskRequest taskRequest) {
-        Task task = TaskMapper.mapper.mapToEntity(taskRequest);
+        Task task = new Task();
         User user = userRepository.findById(taskRequest.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
+        task.setTitle(taskRequest.getTitle());
+        task.setDescription(taskRequest.getDescription());
+        task.setStatus(taskRequest.getStatus());
+        task.setDueDate(taskRequest.getDueDate());
         task.setUser(user);
 
         // save to database

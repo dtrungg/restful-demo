@@ -26,14 +26,6 @@ public interface UserMapper {
     UserRequest mapToDto(User user);
 
     /**
-     * Maps a UserRequest DTO to a User entity.
-     *
-     * @param userRequest UserRequest DTO to map
-     * @return User entity representation of the DTO
-     */
-    User mapToEntity(UserRequest userRequest);
-
-    /**
      * Maps a User entity to a UserResponse DTO.
      *
      * @param user User entity to map

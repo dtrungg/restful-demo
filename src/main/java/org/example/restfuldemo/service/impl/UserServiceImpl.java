@@ -40,7 +40,10 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByUserName(userRequest.getUserName())) {
             throw new ResourceAlreadyExistException(Constants.USER_EXIST);
         }
-        User user = UserMapper.mapper.mapToEntity(userRequest);
+        User user = new User();
+        user.setUserName(userRequest.getUserName());
+        user.setPassWord(userRequest.getPassWord());
+
         User newUser = userRepository.save(user);
         UserResponse userResponse = UserMapper.mapper.mapToResponse(newUser);
         return userResponse;
