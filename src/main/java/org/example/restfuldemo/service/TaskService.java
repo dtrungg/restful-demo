@@ -11,7 +11,7 @@ public interface TaskService {
      *
      * @return List of TaskResponse objects representing all tasks in the system
      */
-    List<TaskResponse> getAllTasks();
+    public List<TaskResponse> getAllTasks();
 
     /**
      * Fetches a specific task by its ID.
@@ -19,7 +19,7 @@ public interface TaskService {
      * @param id The unique identifier of the task to retrieve
      * @return TaskResponse object representing the requested task
      */
-    TaskResponse getTaskById(Long id);
+    public TaskResponse getTaskById(Long id);
 
     /**
      * Creates a new task based on the provided request data.
@@ -28,7 +28,7 @@ public interface TaskService {
      * @param taskRequest DTO containing task creation data
      * @return TaskResponse representing the newly created task
      */
-    TaskResponse createTask(TaskRequest taskRequest);
+    public TaskResponse createTask(TaskRequest taskRequest);
 
     /**
      * Updates an existing task with new data.
@@ -38,14 +38,14 @@ public interface TaskService {
      * @param id          Unique identifier of the task to update
      * @return TaskResponse representing the updated task
      */
-    TaskResponse updateTask(TaskRequest taskRequest, Long id);
+    public TaskResponse updateTask(TaskRequest taskRequest, Long id);
 
     /**
      * Deletes a task by its unique identifier.
      *
      * @param id The unique identifier of the task to delete
      */
-    void deleteTask(Long id);
+    public void deleteTask(Long id);
 
     /**
      * Retrieves all tasks associated with a specific user.
@@ -53,5 +53,5 @@ public interface TaskService {
      * @param id Unique identifier of the user whose tasks to retrieve
      * @return List of TaskResponse objects for the specified user's tasks
      */
-    List<TaskResponse> getTasksByUserId(Long id);
+    public List<TaskResponse> getTasksByUserId(Long id);
 }

@@ -16,17 +16,7 @@ public interface TaskMapper {
     /**
      * Singleton instance of the mapper created by MapStruct.
      */
-    TaskMapper mapper = Mappers.getMapper(TaskMapper.class);
-
-    /**
-     * Maps a Task entity to a TaskRequest DTO.
-     * Custom mapping is defined to convert user entity ID to userId field in DTO.
-     *
-     * @param task Task entity to map
-     * @return TaskRequest DTO representation of the entity
-     */
-    @Mapping(source = "user.id", target = "userId")
-    TaskRequest mapToDto(Task task);
+    public TaskMapper mapper = Mappers.getMapper(TaskMapper.class);
 
     /**
      * Maps a Task entity to a TaskResponse DTO.
@@ -36,5 +26,5 @@ public interface TaskMapper {
      * @return TaskResponse DTO representation of the entity
      */
     @Mapping(source = "user.id", target = "userId")
-    TaskResponse mapToResponse(Task task);
+    public TaskResponse mapToResponse(Task task);
 }

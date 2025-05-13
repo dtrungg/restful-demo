@@ -15,15 +15,7 @@ public interface UserMapper {
     /**
      * Singleton instance of the mapper created by MapStruct.
      */
-    UserMapper mapper = Mappers.getMapper(UserMapper.class);
-
-    /**
-     * Maps a User entity to a UserRequest DTO.
-     *
-     * @param user User entity to map
-     * @return UserRequest DTO representation of the entity
-     */
-    UserRequest mapToDto(User user);
+    public UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
     /**
      * Maps a User entity to a UserResponse DTO.
@@ -31,5 +23,5 @@ public interface UserMapper {
      * @param user User entity to map
      * @return UserResponse DTO representation of the entity
      */
-    UserResponse mapToResponse(User user);
+    public UserResponse mapToResponse(User user);
 }

@@ -14,14 +14,14 @@ public interface UserService {
      * @param userRequest DTO containing user creation data
      * @return UserResponse representing the newly created user
      */
-    UserResponse createUser(UserRequest userRequest);
+    public UserResponse createUser(UserRequest userRequest);
 
     /**
      * Retrieves all users from the repository and converts them to response DTOs.
      *
      * @return List of UserResponse objects representing all users in the system
      */
-    List<UserResponse> getAllUsers();
+    public List<UserResponse> getAllUsers();
 
     /**
      * Fetches a user by their unique identifier.
@@ -29,7 +29,7 @@ public interface UserService {
      * @param id Unique identifier of the user to retrieve
      * @return UserResponse representing the requested user
      */
-    UserResponse getUserById(Long id);
+    public UserResponse getUserById(Long id);
 
     /**
      * Updates an existing user's information.
@@ -38,12 +38,12 @@ public interface UserService {
      * @param id          Unique identifier of the user to update
      * @param userRequest DTO containing updated user data
      */
-    UserResponse updateUser(Long id, UserRequest userRequest);
+    public UserResponse updateUser(Long id, UserRequest userRequest);
 
     /**
      * Deletes a user by their unique identifier.
      *
      * @param id Unique identifier of the user to delete
      */
-    void deleteUser(Long id);
+    public void deleteUser(Long id);
 }

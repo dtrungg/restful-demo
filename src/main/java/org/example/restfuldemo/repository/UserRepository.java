@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param username The username to search for
      * @return An Optional containing the found User or empty if not found
      */
-    Optional<User> findByUserName(String username);
+    public Optional<User> findByUserName(String username);
 
     /**
      * Checks if a user exists by their username.
@@ -24,5 +24,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param username The username to check
      * @return True if the user exists, false otherwise
      */
-    boolean existsByUserName(String username);
+    public boolean existsByUserName(String username);
 }

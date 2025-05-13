@@ -16,5 +16,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      * @param userId The unique identifier of the user whose tasks to retrieve
      * @return List of Task objects assigned to the specified user (never null, may be empty)
      */
-    List<Task> findByUserId(Long userId);
+    public List<Task> findByUserId(Long userId);
 }
