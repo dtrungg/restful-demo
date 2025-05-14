@@ -43,6 +43,8 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUserName(userRequest.getUserName());
         user.setPassWord(userRequest.getPassWord());
+        user.setEmail(userRequest.getEmail());
+        user.setPhoneNumber(userRequest.getPhoneNumber());
 
         User newUser = userRepository.save(user);
         UserResponse userResponse = UserMapper.mapper.mapToResponse(newUser);
@@ -91,6 +93,8 @@ public class UserServiceImpl implements UserService {
                 () -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
         user.setUserName(userRequest.getUserName());
         user.setPassWord(userRequest.getPassWord());
+        user.setEmail(userRequest.getEmail());
+        user.setPhoneNumber(userRequest.getPhoneNumber());
         User newUser = userRepository.save(user);
         return UserMapper.mapper.mapToResponse(newUser);
     }

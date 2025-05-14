@@ -1,6 +1,5 @@
 package org.example.restfuldemo.mapper;
 
-import org.example.restfuldemo.dto.request.TaskRequest;
 import org.example.restfuldemo.dto.response.task.TaskResponse;
 import org.example.restfuldemo.entity.Task;
 import org.mapstruct.Mapper;

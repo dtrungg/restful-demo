@@ -22,21 +22,6 @@ public class Constants {
     public static final String RESOURCE_ALREADY_EXIST = "Response data not found";
     public static final String GENERAL_EXCEPTION = "An error occurred";
 
-    public static final String NAME_REQUIRED = "Name is required";
-    public static final String NAME_SIZE = "Name must be between 4 and 50 characters";
-    public static final String PASSWORD_REQUIRED = "Password is required";
-    public static final String PASSWORD_SIZE = "Password must be between 6 and 25 characters";
-
-    public static final String TITLE_REQUIRED = "Title is required";
-    public static final String TITLE_SIZE = "Title must be between 3 and 100 characters";
-    public static final String DESCRIPTION_REQUIRED = "Description is required";
-    public static final String DESCRIPTION_SIZE = "Description must be between 10 and 500 characters";
-    public static final String STATUS_REQUIRED = "Status is required";
-    public static final String INVALID_STATUS = "Invalid status";
-    public static final String DUE_DATE_REQUIRED = "Due date is required";
-    public static final String DUE_DATE_FUTURE_OR_PRESENT = "Due date must be in the present or future";
-    public static final String USER_ID_REQUIRED = "User ID is required";
-
     public static final String TASK_MANAGEMENT_TAG_NAME = "Task Management";
     public static final String TASK_MANAGEMENT_TAG_DESCRIPTION = "APIs for managing tasks";
     public static final String GET_ALL_TASKS_SUMMARY = "Get all tasks";

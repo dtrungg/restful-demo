@@ -18,11 +18,16 @@ public class User {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     private String userName;
 
     @Column(nullable = false)
     private String passWord;
+
+    private String email;
+
+    @Column(length = 15)
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.LAZY)

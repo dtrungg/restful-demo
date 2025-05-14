@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.restfuldemo.constants.Constants;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -15,23 +15,24 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskRequest {
-    @NotBlank(message = Constants.TITLE_REQUIRED)
-    @Size(min = 3, max = 100, message = Constants.TITLE_SIZE)
+    @NotBlank(message = "title is required")
+    @Size(min = 3, max = 100, message = "title size must be between 3 and 100 characters")
     private String title;
 
-    @NotBlank(message = Constants.DESCRIPTION_REQUIRED)
-    @Size(min = 10, max = 500, message = Constants.DESCRIPTION_SIZE)
+    @NotNull(message = "description is required")
+    @Size(min = 0, max = 500, message = "description size must be between 0 and 500 characters")
     private String description;
 
-    @NotBlank(message = Constants.STATUS_REQUIRED)
-    @Pattern(regexp = "PENDING|IN_PROGRESS|COMPLETED", message = Constants.INVALID_STATUS)
+    @NotBlank(message = "status is required")
+    @Pattern(regexp = "PENDING|IN_PROGRESS|COMPLETED", message = "status must be one of PENDING, IN_PROGRESS, COMPLETED")
     private String status;
 
-    @NotNull(message = Constants.DUE_DATE_REQUIRED)
-    @FutureOrPresent(message = Constants.DUE_DATE_FUTURE_OR_PRESENT)
-    // @JsonFormat(pattern="yyyy-MM-dd") // Uncomment if needed
+    @NotNull(message = "dueDate is required")
+    @FutureOrPresent(message = "dueDate must be today or in the future")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "dd-MM-yyyy") // Uncomment if needed
     private LocalDate dueDate;
 
-    @NotNull(message = Constants.USER_ID_REQUIRED)
+    @NotNull(message = "userId is required")
     private Long userId;
 }
