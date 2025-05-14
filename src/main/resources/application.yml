@@ -5,14 +5,16 @@ spring:
     url: jdbc:mysql://localhost:3306/rf_mysql
     username: mysql
     password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      #      ddl-auto: update
+#      ddl-auto: update
       ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
   main:
     banner-mode: off
 
