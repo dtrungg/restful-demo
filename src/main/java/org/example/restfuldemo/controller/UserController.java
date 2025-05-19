@@ -9,7 +9,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.restfuldemo.constants.Constants;
+import org.example.restfuldemo.dto.request.UserLoginRequest;
 import org.example.restfuldemo.dto.request.UserRequest;
+import org.example.restfuldemo.dto.response.JwtAuthResponse;
 import org.example.restfuldemo.dto.response.ResponseData;
 import org.example.restfuldemo.dto.response.ResponseUtil;
 import org.example.restfuldemo.dto.response.user.UserResponse;
@@ -98,6 +100,13 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest) {
+        String token = userService.login(userLoginRequest);
+        JwtAuthResponse res = new JwtAuthResponse();
+        res.setAccessToken(token);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }

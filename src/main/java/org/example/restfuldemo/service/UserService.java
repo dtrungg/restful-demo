@@ -1,5 +1,6 @@
 package org.example.restfuldemo.service;
 
+import org.example.restfuldemo.dto.request.UserLoginRequest;
 import org.example.restfuldemo.dto.request.UserRequest;
 import org.example.restfuldemo.dto.response.user.UserResponse;
 
@@ -46,4 +47,6 @@ public interface UserService {
      * @param id Unique identifier of the user to delete
      */
     public void deleteUser(Long id);
+
+    public String login(UserLoginRequest userLoginRequest);
 }

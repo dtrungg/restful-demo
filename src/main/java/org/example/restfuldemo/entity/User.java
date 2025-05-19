@@ -32,4 +32,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.LAZY)
     private List<Task> tasks = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

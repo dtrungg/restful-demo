@@ -1,7 +1,9 @@
 package org.example.restfuldemo.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.restfuldemo.config.JwtTokenProvider;
 import org.example.restfuldemo.constants.Constants;
+import org.example.restfuldemo.dto.request.UserLoginRequest;
 import org.example.restfuldemo.dto.request.UserRequest;
 import org.example.restfuldemo.dto.response.user.UserResponse;
 import org.example.restfuldemo.entity.User;
@@ -10,6 +12,10 @@ import org.example.restfuldemo.exception.ResourceNotFoundException;
 import org.example.restfuldemo.mapper.UserMapper;
 import org.example.restfuldemo.repository.UserRepository;
 import org.example.restfuldemo.service.UserService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +30,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
     /**
      * Creates a new user based on the provided request data.
@@ -45,6 +53,7 @@ public class UserServiceImpl implements UserService {
         user.setPassWord(userRequest.getPassWord());
         user.setEmail(userRequest.getEmail());
         user.setPhoneNumber(userRequest.getPhoneNumber());
+        user.setRole(userRequest.getRole());
 
         User newUser = userRepository.save(user);
         UserResponse userResponse = UserMapper.mapper.mapToResponse(newUser);
@@ -72,8 +81,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserResponse getUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
         UserResponse userResponse = UserMapper.mapper.mapToResponse(user);
         return userResponse;
     }
@@ -89,8 +98,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserResponse updateUser(Long id, UserRequest userRequest) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
         user.setUserName(userRequest.getUserName());
         user.setPassWord(userRequest.getPassWord());
         user.setEmail(userRequest.getEmail());
@@ -108,8 +117,21 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Constants.USER_NOT_FOUND));
         userRepository.delete(user);
     }
+
+    @Override
+    public String login(UserLoginRequest userLoginRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                userLoginRequest.getUserName(),
+                userLoginRequest.getPassWord()
+        ));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtTokenProvider.generateToken(authentication);
+        return token;
+    }
+
+
 }
