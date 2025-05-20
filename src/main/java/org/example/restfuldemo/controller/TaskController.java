@@ -27,39 +27,39 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
 
-    @Operation(summary = Constants.GET_ALL_TASKS_SUMMARY, description = Constants.GET_ALL_TASKS_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.NO_TASKS_FOUND_ERROR,
-                    content = @Content)
-    })
+//    @Operation(summary = Constants.GET_ALL_TASKS_SUMMARY, description = Constants.GET_ALL_TASKS_DESCRIPTION)
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_SUCCESSFUL_MESSAGE,
+//                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+//            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.NO_TASKS_FOUND_ERROR,
+//                    content = @Content)
+//    })
     @GetMapping
     public ResponseEntity<ResponseData<List<TaskResponse>>> getAllTasks() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResponseUtil.success(taskService.getAllTasks(), Constants.TASK_LIST_SUCCESSFUL_MESSAGE));
     }
 
-    @Operation(summary = Constants.GET_TASK_BY_ID_SUMMARY, description = Constants.GET_TASK_BY_ID_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.TASK_NOT_FOUND_ERROR,
-                    content = @Content)
-    })
+//    @Operation(summary = Constants.GET_TASK_BY_ID_SUMMARY, description = Constants.GET_TASK_BY_ID_DESCRIPTION)
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_SUCCESSFUL_MESSAGE,
+//                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+//            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.TASK_NOT_FOUND_ERROR,
+//                    content = @Content)
+//    })
     @GetMapping("/{id}")
     public ResponseEntity<ResponseData<TaskResponse>> getTaskById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResponseUtil.success(taskService.getTaskById(id), Constants.TASK_SUCCESSFUL_MESSAGE));
     }
 
-    @Operation(summary = Constants.CREATE_TASK_SUMMARY, description = Constants.CREATE_TASK_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_CREATED, description = Constants.TASK_CREATE_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.BAD_REQUEST_ERROR,
-                    content = @Content)
-    })
+//    @Operation(summary = Constants.CREATE_TASK_SUMMARY, description = Constants.CREATE_TASK_DESCRIPTION)
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = Constants.HTTP_CREATED, description = Constants.TASK_CREATE_SUCCESSFUL_MESSAGE,
+//                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+//            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.BAD_REQUEST_ERROR,
+//                    content = @Content)
+//    })
     @PostMapping
     public ResponseEntity<ResponseData<TaskResponse>> createTask(@Valid @RequestBody TaskRequest taskRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -68,13 +68,13 @@ public class TaskController {
                 ));
     }
 
-    @Operation(summary = Constants.UPDATE_TASK_SUMMARY, description = Constants.UPDATE_TASK_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_UPDATE_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.TASK_NOT_FOUND_ERROR,
-                    content = @Content)
-    })
+//    @Operation(summary = Constants.UPDATE_TASK_SUMMARY, description = Constants.UPDATE_TASK_DESCRIPTION)
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_UPDATE_SUCCESSFUL_MESSAGE,
+//                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+//            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.TASK_NOT_FOUND_ERROR,
+//                    content = @Content)
+//    })
     @PutMapping("/{id}")
     public ResponseEntity<ResponseData<TaskResponse>> updateTask(
             @Valid @RequestBody TaskRequest taskRequest,
@@ -86,28 +86,28 @@ public class TaskController {
                 ));
     }
 
-    @Operation(summary = Constants.DELETE_TASK_SUMMARY, description = Constants.DELETE_TASK_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_NO_CONTENT,
-                    description = Constants.TASK_DELETE_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.TASK_NOT_FOUND_ERROR,
-                    content = @Content)
-    })
+//    @Operation(summary = Constants.DELETE_TASK_SUMMARY, description = Constants.DELETE_TASK_DESCRIPTION)
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = Constants.HTTP_NO_CONTENT,
+//                    description = Constants.TASK_DELETE_SUCCESSFUL_MESSAGE,
+//                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+//            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.TASK_NOT_FOUND_ERROR,
+//                    content = @Content)
+//    })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @Operation(summary = Constants.GET_TASKS_BY_USER_ID_SUMMARY,
-            description = Constants.GET_TASKS_BY_USER_ID_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.NO_TASKS_FOUND_ERROR,
-                    content = @Content)
-    })
+//    @Operation(summary = Constants.GET_TASKS_BY_USER_ID_SUMMARY,
+//            description = Constants.GET_TASKS_BY_USER_ID_DESCRIPTION)
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.TASK_SUCCESSFUL_MESSAGE,
+//                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+//            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.NO_TASKS_FOUND_ERROR,
+//                    content = @Content)
+//    })
     @GetMapping("/user/{id}")
     public ResponseEntity<ResponseData<List<TaskResponse>>> getTasksByUserId(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK)

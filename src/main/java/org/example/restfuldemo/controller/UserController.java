@@ -30,14 +30,14 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @Operation(summary = Constants.CREATE_USER_SUMMARY, description = Constants.CREATE_USER_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_CREATED, description = Constants.USER_CREATE_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.BAD_REQUEST_ERROR,
-                    content = @Content),
-            @ApiResponse(responseCode = Constants.HTTP_CONFLICT, description = Constants.USER_EXIST, content = @Content)
-    })
+    //    @Operation(summary = Constants.CREATE_USER_SUMMARY, description = Constants.CREATE_USER_DESCRIPTION)
+    //    @ApiResponses(value = {
+    //            @ApiResponse(responseCode = Constants.HTTP_CREATED, description = Constants.USER_CREATE_SUCCESSFUL_MESSAGE,
+    //                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+    //            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.BAD_REQUEST_ERROR,
+    //                    content = @Content),
+    //            @ApiResponse(responseCode = Constants.HTTP_CONFLICT, description = Constants.USER_EXIST, content = @Content)
+    //    })
     @PostMapping
     public ResponseEntity<ResponseData<UserResponse>> createUser(@Valid @RequestBody UserRequest userRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -46,38 +46,38 @@ public class UserController {
                 ));
     }
 
-    @Operation(summary = Constants.GET_ALL_USERS_SUMMARY, description = Constants.GET_ALL_USERS_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.USER_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.NO_USERS_FOUND_ERROR,
-                    content = @Content)
-    })
+    //    @Operation(summary = Constants.GET_ALL_USERS_SUMMARY, description = Constants.GET_ALL_USERS_DESCRIPTION)
+    //    @ApiResponses(value = {
+    //            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.USER_SUCCESSFUL_MESSAGE,
+    //                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+    //            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.NO_USERS_FOUND_ERROR,
+    //                    content = @Content)
+    //    })
     @GetMapping
     public ResponseEntity<ResponseData<List<UserResponse>>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResponseUtil.success(userService.getAllUsers(), Constants.USER_LIST_SUCCESSFUL_MESSAGE));
     }
 
-    @Operation(summary = Constants.GET_USER_BY_ID_SUMMARY, description = Constants.GET_USER_BY_ID_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.USER_SUCCESSFUL_MESSAGE,
-                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.USER_NOT_FOUND_ERROR,
-                    content = @Content)
-    })
+    //    @Operation(summary = Constants.GET_USER_BY_ID_SUMMARY, description = Constants.GET_USER_BY_ID_DESCRIPTION)
+    //    @ApiResponses(value = {
+    //            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.USER_SUCCESSFUL_MESSAGE,
+    //                    content = @Content(schema = @Schema(implementation = ResponseData.class))),
+    //            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.USER_NOT_FOUND_ERROR,
+    //                    content = @Content)
+    //    })
     @GetMapping("/{id}")
     public ResponseEntity<ResponseData<UserResponse>> getUser(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResponseUtil.success(userService.getUserById(id), Constants.USER_SUCCESSFUL_MESSAGE));
     }
 
-    @Operation(summary = Constants.UPDATE_USER_SUMMARY, description = Constants.UPDATE_USER_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.USER_UPDATE_SUCCESSFUL_MESSAGE),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.USER_NOT_FOUND_ERROR,
-                    content = @Content)
-    })
+    //    @Operation(summary = Constants.UPDATE_USER_SUMMARY, description = Constants.UPDATE_USER_DESCRIPTION)
+    //    @ApiResponses(value = {
+    //            @ApiResponse(responseCode = Constants.HTTP_OK, description = Constants.USER_UPDATE_SUCCESSFUL_MESSAGE),
+    //            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.USER_NOT_FOUND_ERROR,
+    //                    content = @Content)
+    //    })
     @PutMapping("/{id}")
     public ResponseEntity<ResponseData<UserResponse>> updateUser(
             @PathVariable Long id,
@@ -89,13 +89,13 @@ public class UserController {
                 ));
     }
 
-    @Operation(summary = Constants.DELETE_USER_SUMMARY, description = Constants.DELETE_USER_DESCRIPTION)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = Constants.HTTP_NO_CONTENT,
-                    description = Constants.USER_DELETE_SUCCESSFUL_MESSAGE),
-            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.USER_NOT_FOUND_ERROR,
-                    content = @Content)
-    })
+    //    @Operation(summary = Constants.DELETE_USER_SUMMARY, description = Constants.DELETE_USER_DESCRIPTION)
+    //    @ApiResponses(value = {
+    //            @ApiResponse(responseCode = Constants.HTTP_NO_CONTENT,
+    //                    description = Constants.USER_DELETE_SUCCESSFUL_MESSAGE),
+    //            @ApiResponse(responseCode = Constants.HTTP_BAD_REQUEST, description = Constants.USER_NOT_FOUND_ERROR,
+    //                    content = @Content)
+    //    })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
@@ -104,9 +104,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest) {
-        String token = userService.login(userLoginRequest);
-        JwtAuthResponse res = new JwtAuthResponse();
-        res.setAccessToken(token);
-        return ResponseEntity.status(HttpStatus.OK).body(res);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ResponseUtil.success(userService.login(userLoginRequest), "login successful"));
     }
 }

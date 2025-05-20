@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.Setter;
 import org.example.restfuldemo.entity.Role;
 
 @Getter
@@ -24,5 +23,6 @@ public class UserRequest {
     @Pattern(regexp = "^\\d{11}$", message = "Invalid phone number format")
     private String phoneNumber;
 
+//    @NotBlank(message = "role is required")
     private Role role;
 }

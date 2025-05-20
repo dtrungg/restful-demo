@@ -2,6 +2,7 @@ package org.example.restfuldemo.service;
 
 import org.example.restfuldemo.dto.request.UserLoginRequest;
 import org.example.restfuldemo.dto.request.UserRequest;
+import org.example.restfuldemo.dto.response.JwtAuthResponse;
 import org.example.restfuldemo.dto.response.user.UserResponse;
 
 import java.util.List;
@@ -48,5 +49,5 @@ public interface UserService {
      */
     public void deleteUser(Long id);
 
-    public String login(UserLoginRequest userLoginRequest);
+    public JwtAuthResponse login(UserLoginRequest userLoginRequest);
 }

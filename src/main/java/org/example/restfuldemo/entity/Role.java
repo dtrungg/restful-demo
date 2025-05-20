@@ -1,47 +1,27 @@
 package org.example.restfuldemo.entity;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+import static org.example.restfuldemo.entity.Permission.*;
+
+@Getter
+@AllArgsConstructor
 public enum Role {
-    ADMIN(
-            Set.of(
-                    Permission.TASK_READ,
-                    Permission.TASK_UPDATE,
-                    Permission.TASK_DELETE,
-                    Permission.TASK_CREATE,
-                    Permission.USER_READ,
-                    Permission.USER_UPDATE,
-                    Permission.USER_DELETE,
-                    Permission.USER_CREATE
-            )
-    ),
-    USER(
-            Set.of(
-                    Permission.USER_READ,
-                    Permission.USER_UPDATE,
-                    Permission.USER_DELETE,
-                    Permission.USER_CREATE
-            )
-    );
-
+    ADMIN(Set.of(READ_TASKS,
+            READ_TASK,
+            READ_TASK_USER,
+            UPDATE_TASK,
+            DELETE_TASK,
+            CREATE_TASK,
+            READ_USERS,
+            READ_USER,
+            UPDATE_USER,
+            DELETE_USER,
+            CREATE_USER
+    )),
+    USER(Set.of(READ_TASKS, READ_USER, UPDATE_USER, DELETE_USER, CREATE_USER));
     private final Set<Permission> permissions;
-
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public List<SimpleGrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = getPermissions().stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-                .collect(Collectors.toList());
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + name()));
-        return authorities;
-    }
 }

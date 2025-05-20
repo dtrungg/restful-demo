@@ -1,10 +1,12 @@
 package org.example.restfuldemo.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.restfuldemo.config.CustomUserDetails;
 import org.example.restfuldemo.config.JwtTokenProvider;
 import org.example.restfuldemo.constants.Constants;
 import org.example.restfuldemo.dto.request.UserLoginRequest;
 import org.example.restfuldemo.dto.request.UserRequest;
+import org.example.restfuldemo.dto.response.JwtAuthResponse;
 import org.example.restfuldemo.dto.response.user.UserResponse;
 import org.example.restfuldemo.entity.User;
 import org.example.restfuldemo.exception.ResourceAlreadyExistException;
@@ -16,10 +18,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the UserService interface providing CRUD operations for users.
@@ -32,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Creates a new user based on the provided request data.
@@ -50,7 +55,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = new User();
         user.setUserName(userRequest.getUserName());
-        user.setPassWord(userRequest.getPassWord());
+        user.setPassWord(passwordEncoder.encode(userRequest.getPassWord()));
         user.setEmail(userRequest.getEmail());
         user.setPhoneNumber(userRequest.getPhoneNumber());
         user.setRole(userRequest.getRole());
@@ -123,14 +128,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(UserLoginRequest userLoginRequest) {
+    public JwtAuthResponse login(UserLoginRequest userLoginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 userLoginRequest.getUserName(),
                 userLoginRequest.getPassWord()
         ));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenProvider.generateToken(authentication);
-        return token;
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        List<String> roles = userDetails.getAuthorities().stream()
+//                .map(item -> item.getAuthority())
+//                .collect(Collectors.toList());
+
+        return new JwtAuthResponse(token);
     }
 
 

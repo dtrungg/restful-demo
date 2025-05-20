@@ -3,6 +3,7 @@ package org.example.restfuldemo.config;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -11,29 +12,27 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
+@Log4j2
 public class JwtTokenProvider {
 
     @Value("${app.jwt-secret}")
     private String jwtSecret;
 
     @Value("${app.jwt-expiration}")
-    private String jwtExpirationDate;
+    private String jwtExpirationMs;
 
     // generate JWT token
     public String generateToken(Authentication authentication) {
-        String username = authentication.getName();
-
+        CustomUserDetails userPrincipal = (CustomUserDetails) authentication.getPrincipal();
         Date currentDate = new Date();
 
-        Date expireDate = new Date(currentDate.getTime() + Long.parseLong(jwtExpirationDate));
-
+        Date expireDate = new Date(currentDate.getTime() + Long.parseLong(jwtExpirationMs));
         String token = Jwts.builder()
-                .setSubject(username)
+                .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
-                .signWith(key())
+                .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
-
         return token;
     }
 
@@ -42,7 +41,7 @@ public class JwtTokenProvider {
     }
 
     // get username from jwt token
-    public String getUsername(String token) {
+    public String getUserNameFromJwtToken(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()
@@ -53,7 +52,7 @@ public class JwtTokenProvider {
     }
 
     // validate jwt token
-    public boolean validateToken(String token) {
+    public boolean validateJwtToken(String token) {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key())
@@ -61,14 +60,15 @@ public class JwtTokenProvider {
                     .parse(token);
             return true;
         } catch (MalformedJwtException e) {
-            throw new RuntimeException("invalid jwt token");
+            log.error("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
-            throw new RuntimeException("expired jwt token");
+            log.error("JWT token is expired: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
-            throw new RuntimeException("unsupported jwt token");
+            log.error("JWT token is unsupported: {}", e.getMessage());
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("jwt claims string is empty");
+            log.error("JWT claims string is empty: {}", e.getMessage());
         }
+        return false;
     }
 
 }

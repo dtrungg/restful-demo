@@ -1,28 +1,29 @@
 package org.example.restfuldemo.entity;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpMethod;
 
-@RequiredArgsConstructor
+import static org.springframework.http.HttpMethod.*;
+
+@Getter
+@AllArgsConstructor
 public enum Permission {
-    TASK_READ("task:read"),
+    // Task permissions
+    READ_TASKS(GET, "/api/v1/tasks", "read tasks"),
+    READ_TASK(GET, "/api/v1/tasks/**", "read task"),
+    READ_TASK_USER(GET, "/api/v1/tasks/user/**", "read task by user id"),
+    UPDATE_TASK(PUT, "/api/v1/tasks/**", "update task"),
+    CREATE_TASK(POST, "/api/v1/tasks", "create task"),
+    DELETE_TASK(DELETE, "/api/v1/tasks/**", "delete task"),
+    // User permissions
+    READ_USERS(GET, "/api/v1/users", "read users"),
+    READ_USER(GET, "/api/v1/users/**", "read user"),
+    UPDATE_USER(PUT, "/api/v1/users/**", "update user"),
+    CREATE_USER(POST, "/api/v1/users", "create user"),
+    DELETE_USER(DELETE, "/api/v1/users/**", "delete user");
 
-    TASK_UPDATE("task:update"),
-
-    TASK_CREATE("task:create"),
-
-    TASK_DELETE("task:delete"),
-
-    USER_READ("user:read"),
-
-    USER_UPDATE("user:update"),
-
-    USER_CREATE("user:create"),
-
-    USER_DELETE("user:delete");
-
-    private final String permission;
-
-    public String getPermission() {
-        return permission;
-    }
+    private final HttpMethod method;
+    private final String url;
+    private final String description;
 }
