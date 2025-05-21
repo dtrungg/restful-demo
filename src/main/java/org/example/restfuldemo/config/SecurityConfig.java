@@ -38,7 +38,7 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger-ui.html"};
     private static final String TASK_URL = "/api/v1/tasks/**";
-    private static final String USERS_URL = "/api/v1/users";
+    private static final String USERS_URL = "/api/v1/users/**";
 //    private static final String USER_URL = "/api/v1/users/**";
 
     @Bean

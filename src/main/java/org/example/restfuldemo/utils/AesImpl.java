@@ -20,12 +20,8 @@ public class AesImpl {
     private static final int DEST_POSITION = 0;
 
     public static void main(String[] args) throws Exception {
-        // Generate AES-128 key
-        //        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        //        keyGen.init(128); // Key size changed to 128
-        //        SecretKey key = keyGen.generateKey();
-
-        SecretKey key = generateKeyFromPassword("your_password", AES_KEY_SIZE);
+        SecretKey key = generateKey();
+        //        SecretKey key = generateKeyFromPassword("your_password", AES_KEY_SIZE);
 
         String plaintext = "API Secret Data";
         System.out.println(plaintext);
@@ -36,7 +32,14 @@ public class AesImpl {
         System.out.println("Decrypted: " + decrypted);
     }
 
-    public static SecretKey generateKeyFromPassword(String password, int keyLength) throws Exception {
+    public static SecretKey generateKey() throws Exception {
+        // Generate AES-128 key
+        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+        keyGen.init(128); // Key size changed to 128
+        return keyGen.generateKey();
+    }
+
+    private static SecretKey generateKeyFromPassword(String password, int keyLength) throws Exception {
         // Validate key length (128, 192, or 256 bits)
         if (keyLength != 128 && keyLength != 192 && keyLength != 256) {
             throw new IllegalArgumentException("Invalid key length. Use 128, 192, or 256.");
