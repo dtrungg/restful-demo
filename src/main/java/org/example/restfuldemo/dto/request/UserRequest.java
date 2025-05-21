@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import org.example.restfuldemo.entity.Role;
+import org.example.restfuldemo.entity.ERole;
 
 @Getter
 public class UserRequest {
@@ -24,5 +24,5 @@ public class UserRequest {
     private String phoneNumber;
 
 //    @NotBlank(message = "role is required")
-    private Role role;
+    private ERole role;
 }

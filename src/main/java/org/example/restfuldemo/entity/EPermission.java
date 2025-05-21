@@ -8,7 +8,7 @@ import static org.springframework.http.HttpMethod.*;
 
 @Getter
 @AllArgsConstructor
-public enum Permission {
+public enum EPermission {
     // Task permissions
     READ_TASKS(GET, "/api/v1/tasks", "read tasks"),
     READ_TASK(GET, "/api/v1/tasks/**", "read task"),

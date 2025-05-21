@@ -1,12 +1,11 @@
 package org.example.restfuldemo.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.restfuldemo.entity.Permission;
+import org.example.restfuldemo.entity.EPermission;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -39,7 +38,8 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger-ui.html"};
     private static final String TASK_URL = "/api/v1/tasks/**";
-    private static final String USER_URL = "/api/v1/users/**";
+    private static final String USERS_URL = "/api/v1/users";
+//    private static final String USER_URL = "/api/v1/users/**";
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -68,15 +68,15 @@ public class SecurityConfig {
         http.authorizeHttpRequests(req ->
         {
             req.requestMatchers(WHITE_LIST_URL).permitAll();
-            req.requestMatchers(GET, USER_URL).permitAll();
-            req.requestMatchers(POST, USER_URL).permitAll();
+            req.requestMatchers(GET, USERS_URL).permitAll();
+            req.requestMatchers(POST, USERS_URL).permitAll();
             // map permissions to request matchers
-            for (Permission permission : Permission.values()) {
+            for (EPermission permission : EPermission.values()) {
                 req.requestMatchers(permission.getMethod(), permission.getUrl()).hasAuthority(permission.name());
             }
             req.anyRequest().authenticated();
         });
-        http.httpBasic(Customizer.withDefaults());
+//        http.httpBasic(Customizer.withDefaults());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

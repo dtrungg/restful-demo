@@ -5,11 +5,11 @@ import lombok.Getter;
 
 import java.util.Set;
 
-import static org.example.restfuldemo.entity.Permission.*;
+import static org.example.restfuldemo.entity.EPermission.*;
 
 @Getter
 @AllArgsConstructor
-public enum Role {
+public enum ERole {
     ADMIN(Set.of(READ_TASKS,
             READ_TASK,
             READ_TASK_USER,
@@ -23,5 +23,5 @@ public enum Role {
             CREATE_USER
     )),
     USER(Set.of(READ_TASKS, READ_USER, UPDATE_USER, DELETE_USER, CREATE_USER));
-    private final Set<Permission> permissions;
+    private final Set<EPermission> permissions;
 }

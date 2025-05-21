@@ -34,5 +34,5 @@ public class User {
     private List<Task> tasks = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private ERole role;
 }
