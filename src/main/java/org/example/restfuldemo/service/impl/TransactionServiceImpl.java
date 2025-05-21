@@ -1,7 +1,6 @@
 package org.example.restfuldemo.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.example.restfuldemo.dto.request.TransactionRequest;
 import org.example.restfuldemo.dto.response.TransactionHistoryResponse;
 import org.example.restfuldemo.entity.TransactionHistory;
@@ -55,28 +54,35 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<TransactionHistoryResponse> transferMoney(TransactionRequest request) {
+        String decryptedAccountNumberSrc;
+        String decryptedAccountNumberDest;
+        BigDecimal decryptedAmount;
+        try {
+            decryptedAccountNumberSrc = RsaImpl.decrypt(request.getAccountNumberSrc(), rsaPrivateKey);
+            decryptedAccountNumberDest = RsaImpl.decrypt(request.getAccountNumberDest(), rsaPrivateKey);
+            decryptedAmount = new BigDecimal(RsaImpl.decrypt(request.getAmount(), rsaPrivateKey));
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        }
 
         TransactionHistory fromAccount = new TransactionHistory();
-        //        fromAccount.setTransactionId(UUID.randomUUID().toString());
-        //        fromAccount.setAccountNumber(request.getAccountNumberSrc());
         try {
-            fromAccount.setAccountNumber(AesImpl.encrypt(request.getAccountNumberSrc(), aesKey));
+            fromAccount.setAccountNumber(AesImpl.encrypt(decryptedAccountNumberSrc, aesKey));
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        fromAccount.setInDebt(fromAccount.getInDebt().add(request.getAmount()));
+        fromAccount.setInDebt(fromAccount.getInDebt().add(decryptedAmount));
         fromAccount.setHave(BigDecimal.ZERO);
         transactionHistoryRepository.save(fromAccount);
 
         TransactionHistory toAccount = new TransactionHistory();
-        //        toAccount.setTransactionId(UUID.randomUUID().toString());
         try {
-            toAccount.setAccountNumber(AesImpl.encrypt(request.getAccountNumberDest(), aesKey));
+            toAccount.setAccountNumber(AesImpl.encrypt(decryptedAccountNumberDest, aesKey));
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
         toAccount.setInDebt(BigDecimal.ZERO);
-        toAccount.setHave(toAccount.getHave().add(request.getAmount()));
+        toAccount.setHave(toAccount.getHave().add(decryptedAmount));
         transactionHistoryRepository.save(toAccount);
 
         List<TransactionHistory> list = transactionHistoryRepository.findAll();

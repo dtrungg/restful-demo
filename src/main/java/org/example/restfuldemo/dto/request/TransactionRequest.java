@@ -15,5 +15,6 @@ public class TransactionRequest {
     private String accountNumberDest;
 
     @NotNull(message = "Amount cannot be null")
-    private BigDecimal amount;
+//    private BigDecimal amount;
+    private String  amount;
 }
