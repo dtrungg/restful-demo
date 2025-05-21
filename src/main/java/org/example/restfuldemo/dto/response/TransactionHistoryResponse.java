@@ -16,7 +16,7 @@ public class TransactionHistoryResponse {
     private Long id;
     private String transactionId;
     private String accountNumber;
-    private BigDecimal inDebt;
-    private BigDecimal have;
-    private LocalDateTime time;
+    private String inDebt;
+    private String have;
+    private String time;
 }

@@ -36,7 +36,9 @@ public class SecurityConfig {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"};
+            "/swagger-ui.html",
+            "/api/v1/transactions/**",
+    };
     private static final String TASK_URL = "/api/v1/tasks/**";
     private static final String USERS_URL = "/api/v1/users/**";
 //    private static final String USER_URL = "/api/v1/users/**";
